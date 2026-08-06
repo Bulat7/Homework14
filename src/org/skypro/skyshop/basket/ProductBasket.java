@@ -28,7 +28,7 @@ public class ProductBasket {
     }
 
     public void printBasket() {
-        if(this.basket == null) {
+        if(this.basket == null || totalPrice() == 0) {
             System.out.println("В корзине пусто");
             return;
         }
@@ -36,13 +36,10 @@ public class ProductBasket {
             var product = basket[i];
 
             if(product != null) {
-                System.out.println("< " + product.getName() + " >: " + product.getPrice());
-            } else {
-                System.out.println("Ячейка - " + i + " пуста");
+                System.out.println("<" + product.getName() + ">: " + product.getPrice());
             }
-            
         }
-        System.out.println("Итого: < " + totalPrice() + " >");
+        System.out.println("Итого: <" + totalPrice() + ">");
     }
 
     public boolean productChek(String productName) {
