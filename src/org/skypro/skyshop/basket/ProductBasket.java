@@ -28,18 +28,25 @@ public class ProductBasket {
     }
 
     public void printBasket() {
+        int specialCount = 0;
         if(this.basket == null || totalPrice() == 0) {
             System.out.println("В корзине пусто");
             return;
         }
+
         for (int i = 0; i < basket.length; i++) {
             var product = basket[i];
 
             if(product != null) {
-                System.out.println("<" + product.getName() + ">: " + product.getPrice());
+                System.out.println(product);
+                if(product.isSpecial()) {
+                    specialCount++;
+                }
             }
+
         }
         System.out.println("Итого: <" + totalPrice() + ">");
+        System.out.println("Специальных товаров: < " + specialCount + " >");
     }
 
     public boolean productChek(String productName) {
