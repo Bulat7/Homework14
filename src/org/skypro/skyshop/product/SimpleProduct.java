@@ -16,6 +16,11 @@ public class SimpleProduct extends Product {
 
     @Override
     public String toString() {
-        return "< " + getName() + " >: < " + getPrice() + " > ";
+        return getName() + " : " + getPrice();
+    }
+
+    @Override
+    public boolean isSpecial() {
+        return false;
     }
 }

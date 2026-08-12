@@ -28,25 +28,18 @@ public class ProductBasket {
     }
 
     public void printBasket() {
-        int specialCount = 0;
-        if(this.basket == null || totalPrice() == 0) {
+        if (this.basket == null || totalPrice() == 0) {
             System.out.println("В корзине пусто");
             return;
         }
-
         for (int i = 0; i < basket.length; i++) {
             var product = basket[i];
-
-            if(product != null) {
+            if (product != null) {
                 System.out.println(product);
-                if(product.isSpecial()) {
-                    specialCount++;
-                }
             }
-
         }
-        System.out.println("Итого: <" + totalPrice() + ">");
-        System.out.println("Специальных товаров: < " + specialCount + " >");
+        System.out.println("Итого:" + totalPrice());
+        System.out.println("Специальных товаров: " + getSpecialCount());
     }
 
     public boolean productChek(String productName) {
@@ -62,11 +55,24 @@ public class ProductBasket {
     }
 
     public void basketCleaner() {
-        for(int i = 0; i<basket.length; i++) {
+        for (int i = 0; i < basket.length; i++) {
             basket[i] = null;
         }
         this.count = 0;
     }
 
+    public int getSpecialCount() {
+        int specialCount = 0;
+
+        for (int i = 0; i < basket.length; i++) {
+            var product = basket[i];
+
+            if (product != null && product.isSpecial()) {
+                specialCount++;
+            }
+        }
+        return specialCount;
+
+    }
 
 }
