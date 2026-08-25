@@ -24,8 +24,4 @@ public final class Article implements Searchable {
         return "ARTICLE";
     }
 
-    @Override
-    public String getStringRepresentation() {
-        return name + " - " +getContentType();
-    }
 }
