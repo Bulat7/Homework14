@@ -46,9 +46,9 @@ public class SearchEngine {
         this.size = 0;
         System.out.println("\n Engine is clear \n");
     }
-    public Searchable findMostSuitable (String search) throws NullElementException {
+    public Searchable findMostSuitable (String search) throws BestResultNotFound {
         if(search == null || search.isEmpty()) {
-            throw new NullElementException("BestResultNotFound");
+            throw new BestResultNotFound("BestResultNotFound");
         }
 
         Searchable searchable = null;
@@ -67,7 +67,7 @@ public class SearchEngine {
             }
         }
         if (searchable == null) {
-            throw new NullElementException("BestResultNotFound");
+            throw new BestResultNotFound("BestResultNotFound");
         }
         return searchable;
     }

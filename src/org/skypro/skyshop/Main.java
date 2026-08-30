@@ -3,8 +3,6 @@ package org.skypro.skyshop;
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.*;
 
-import java.util.Arrays;
-
 class App{
     public static void main(String[] args) {
         ProductBasket basket = new ProductBasket();
@@ -42,7 +40,7 @@ class App{
         searchEngine.add(simpleRedApple);
         try {
             System.out.println(searchEngine.findMostSuitable(simpleApple.getName()));
-        } catch (NullElementException e) {
+        } catch (BestResultNotFound e) {
             System.out.println("Ошибка - " + e.getMessage());
         }
         finally {
@@ -51,14 +49,25 @@ class App{
         }
         try {
             System.out.println(searchEngine.findMostSuitable("chili"));
-        } catch (NullElementException e) {
+        } catch (BestResultNotFound e) {
             System.out.println("Ошибка - " + e.getMessage());
         }
         finally {
             System.out.println("Поиск завершен.");
 
+        }
+        searchEngine.clearEngine();
+        searchEngine.add(fixedBread);
+        try {
+            System.out.println(searchEngine.findMostSuitable("apple"));
+        } catch (BestResultNotFound e) {
+            System.out.println("Ошибка - " + e.getMessage());
+        }
+        finally {
+            System.out.println("Поиск завершен.");
 
         }
+
 
     }
 }
