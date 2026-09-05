@@ -79,10 +79,5 @@ class App{
         productBasket.printBasket();
         productBasket.removeProduct("Гречка");
         productBasket.printBasket();
-
-
-
-
     }
-
 }
