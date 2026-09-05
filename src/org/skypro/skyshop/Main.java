@@ -3,81 +3,70 @@ package org.skypro.skyshop;
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.*;
 
-import java.util.Arrays;
-
 class App{
     public static void main(String[] args) {
         ProductBasket basket = new ProductBasket();
-
-        Product simpleApple = new SimpleProduct("GreenApple", 100);
-        Product discontedRise = new DiscountedProduct("Rise", 50,25);
-        Product fixedPaper = new FixPriceProduct("Paper");
-        Product discountedBread = new DiscountedProduct("WhiteBread", 80,40);
-
-        basket.addProduct(simpleApple);
-        basket.addProduct(discontedRise);
-        basket.addProduct(fixedPaper);
-        basket.addProduct(discountedBread);
-
-        // Проверка работы поискового движка
-
-        SearchEngine engine = new SearchEngine(5);
-
-        engine.add(simpleApple);
-        engine.add(discontedRise);
-        engine.add(fixedPaper);
-        engine.add(discountedBread);
-
-        Searchable[] results = engine.search("Bread");
-        for (int i = 0; i < 5; i++) {
-            if( results[i] != null) {
-                System.out.println(results[i].getStringRepresentation());
-            }
+        try {
+            Product fixedBread = new FixPriceProduct(null);
+        } catch (IllegalArgumentException e){
+            System.out.println("Ошибка! " + e.getMessage());
+        }
+        try {
+        Product simpleApple = new SimpleProduct("GreenApple", -2);
+        } catch (IllegalArgumentException e){
+            System.out.println("Ошибка! " + e.getMessage());
         }
 
-        Article article = new Article("Обзор нового гаджета", "Текст");
-        Article article1 = new Article("Статья из газеты Вечерние зори", "Текст");
-        Article article2 = new Article("Анекдоты", "Текст");
-        Article article3 = new Article("Записки поэта", "Текст");
-        Article article4 = new Article("Гороскоп", "Текст");
-        Article article5 = new Article("Объявления", "Текст");
+        try {
+            Product discountedProduct = new DiscountedProduct("Rise", 10,-20 );
+        } catch (IllegalArgumentException e){
+            System.out.println("Ошибка! " + e.getMessage());
+        }
 
-        engine.add(article);
-        engine.add(article1);
-        engine.add(article2);
-        engine.add(article3);
-        engine.add(article4);
-        engine.add(article5);
-
-        engine.printAll();
-        engine.clearEngine();
-
-        engine.add(article);
-        engine.add(article1);
-        engine.add(article2);
-        engine.add(article3);
-        engine.add(article4);
-        engine.add(article5);
-
-        engine.printAll();
-
-        engine.search("зори");
-        engine.search("поэт");
+        Product fixedBread = new FixPriceProduct("Bread");
+        Product simpleApple = new SimpleProduct("Apple", 20);
+        Product discountedRise = new DiscountedProduct("Rise", 100,20 );
+        Product simpleGreenApple = new SimpleProduct("GreenApple", 15);
+        Product simpleRedApple = new SimpleProduct("RedApple", 25);
 
 
 
 
+        SearchEngine searchEngine = new SearchEngine(5);
+        searchEngine.add(fixedBread);
+        searchEngine.add(simpleApple);
+        searchEngine.add(discountedRise);
+        searchEngine.add(simpleGreenApple);
+        searchEngine.add(simpleRedApple);
+        try {
+            System.out.println(searchEngine.findMostSuitable(simpleApple.getName()));
+        } catch (BestResultNotFound e) {
+            System.out.println("Ошибка - " + e.getMessage());
+        }
+        finally {
+            System.out.println("Поиск завершен.");
 
+        }
+        try {
+            System.out.println(searchEngine.findMostSuitable("chili"));
+        } catch (BestResultNotFound e) {
+            System.out.println("Ошибка - " + e.getMessage());
+        }
+        finally {
+            System.out.println("Поиск завершен.");
 
+        }
+        searchEngine.clearEngine();
+        searchEngine.add(fixedBread);
+        try {
+            System.out.println(searchEngine.findMostSuitable("apple"));
+        } catch (BestResultNotFound e) {
+            System.out.println("Ошибка - " + e.getMessage());
+        }
+        finally {
+            System.out.println("Поиск завершен.");
 
-
-
-
-
-
-
-
-
+        }
 
 
     }

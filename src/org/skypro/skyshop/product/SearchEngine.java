@@ -46,4 +46,31 @@ public class SearchEngine {
         this.size = 0;
         System.out.println("\n Engine is clear \n");
     }
+    public Searchable findMostSuitable (String search) throws BestResultNotFound {
+        if(search == null || search.isEmpty()) {
+            throw new BestResultNotFound("BestResultNotFound");
+        }
+
+        Searchable searchable = null;
+        int count = 0;
+
+        for(int i = 0; i < elements.length; i++) {
+            if ( elements[i] == null) {
+                continue;
+            }
+            String term = elements[i].searchTerm();
+            int gap = term.length() - term.replace(search,"").length();
+            int currentCount = gap / search.length();
+            if(currentCount > count) {
+                count = currentCount;
+                searchable = elements[i];
+            }
+        }
+        if (searchable == null) {
+            throw new BestResultNotFound("BestResultNotFound");
+        }
+        return searchable;
+    }
+
+
 }
