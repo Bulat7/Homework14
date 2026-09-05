@@ -1,19 +1,15 @@
 package org.skypro.skyshop.basket;
 import org.skypro.skyshop.product.Product;
 
-import java.util.Arrays;
+import java.util.*;
 
 public class ProductBasket {
-    private Product[] basket = new Product[5];
-    private int count = 0;
+    private List<Product> basket = new LinkedList<>();
 
-    public void addProduct(Product newProduct) {
-        if (count < basket.length) {
-            basket[count] = newProduct;
-            count++;
-            System.out.println("Добавлен продукт - " + newProduct.getName() + " цена - " + newProduct.getPrice());
-        } else {
-            System.out.println("Невозможно добавить продукт");
+    public void addProduct(Product product) {
+        if (product!= null ) {
+            basket.add(product);
+            System.out.println("Добавлен продукт - " + product.getName() + " цена - " + product.getPrice());
         }
     }
 
@@ -32,8 +28,8 @@ public class ProductBasket {
             System.out.println("В корзине пусто");
             return;
         }
-        for (int i = 0; i < basket.length; i++) {
-            var product = basket[i];
+        for (int i = 0; i < basket.size(); i++) {
+            var product = basket.get(i);
             if (product != null) {
                 System.out.println(product);
             }
@@ -54,24 +50,44 @@ public class ProductBasket {
         return false;
     }
 
-    public void basketCleaner() {
-        for (int i = 0; i < basket.length; i++) {
-            basket[i] = null;
-        }
-        this.count = 0;
-    }
 
     public int getSpecialCount() {
         int specialCount = 0;
 
-        for (int i = 0; i < basket.length; i++) {
-            var product = basket[i];
+        for (int i = 0; i < basket.size(); i++) {
+            var product = basket.get(i);
 
             if (product != null && product.isSpecial()) {
                 specialCount++;
             }
         }
         return specialCount;
+
+    }
+
+    public void removeProduct(String name) {
+        List<Product> rp = new ArrayList<>();
+
+        Iterator<Product> iterator = basket.iterator();
+
+        while (iterator.hasNext()) {
+            Product product = iterator.next();
+
+            if(product.getName().contains(name)) {
+                rp.add(product);
+                iterator.remove();
+            }
+        }
+        if(!rp.isEmpty()) {
+            System.out.println("Продукты удалены: " + rp);
+        } else {
+            System.out.println("Список пуст");
+        }
+
+
+
+
+
 
     }
 

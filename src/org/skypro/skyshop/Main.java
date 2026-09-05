@@ -32,7 +32,7 @@ class App{
 
 
 
-        SearchEngine searchEngine = new SearchEngine(5);
+        SearchEngine searchEngine = new SearchEngine();
         searchEngine.add(fixedBread);
         searchEngine.add(simpleApple);
         searchEngine.add(discountedRise);
@@ -56,7 +56,6 @@ class App{
             System.out.println("Поиск завершен.");
 
         }
-        searchEngine.clearEngine();
         searchEngine.add(fixedBread);
         try {
             System.out.println(searchEngine.findMostSuitable("apple"));
@@ -68,6 +67,22 @@ class App{
 
         }
 
+        ProductBasket productBasket = new ProductBasket();
+        productBasket.addProduct(fixedBread);
+        productBasket.addProduct(simpleGreenApple);
+        productBasket.addProduct(simpleApple);
+        productBasket.addProduct(simpleRedApple);
+        productBasket.addProduct(discountedRise);
+
+        System.out.println("\n18 lesson:");
+        productBasket.removeProduct("Apple");
+        productBasket.printBasket();
+        productBasket.removeProduct("Гречка");
+        productBasket.printBasket();
+
+
+
 
     }
+
 }
