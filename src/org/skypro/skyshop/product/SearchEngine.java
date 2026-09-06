@@ -10,21 +10,16 @@ public class SearchEngine {
         this.elements = new LinkedList<>();
     }
 
-    public Searchable[] search(String query) {
-        Searchable[] searchables = new Searchable[5];
-        int count = 0;
+    public List<Searchable> search(String query) {
+        List <Searchable> result = new LinkedList<>();
         for (Searchable sch : elements) {
             if (sch.searchTerm().contains((query))) {
-                searchables[count] = sch;
+                result.add(sch);
                 System.out.println("Элемент найден: " + sch.getStringRepresentation());
-                count++;
-                if (count == 5) {
-                    return searchables;
-                }
             }
 
         }
-        return searchables;
+        return result;
     }
 
     public void printAll(){

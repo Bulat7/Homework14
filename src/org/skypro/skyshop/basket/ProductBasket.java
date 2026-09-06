@@ -65,28 +65,20 @@ public class ProductBasket {
 
     }
 
-    public void removeProduct(String name) {
-        List<Product> rp = new ArrayList<>();
+    public List<Product> removeProduct(String name) {
+        List<Product> rp = new LinkedList<>();
 
         Iterator<Product> iterator = basket.iterator();
 
         while (iterator.hasNext()) {
             Product product = iterator.next();
 
-            if(product.getName().contains(name)) {
+            if(product.getName().equals(name)) {
                 rp.add(product);
                 iterator.remove();
             }
         }
-        if(!rp.isEmpty()) {
-            System.out.println("Продукты удалены: " + rp);
-        } else {
-            System.out.println("Список пуст");
-        }
-
-
-
-
+        return rp;
 
 
     }

@@ -3,6 +3,9 @@ package org.skypro.skyshop;
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.*;
 
+import java.util.LinkedList;
+import java.util.List;
+
 class App{
     public static void main(String[] args) {
         ProductBasket basket = new ProductBasket();
@@ -75,9 +78,20 @@ class App{
         productBasket.addProduct(discountedRise);
 
         System.out.println("\n18 lesson:");
-        productBasket.removeProduct("Apple");
+        List<Product> deletedProduct = productBasket.removeProduct("Apple");
+        System.out.println(deletedProduct);
+        System.out.println("------------");
         productBasket.printBasket();
-        productBasket.removeProduct("Гречка");
+        System.out.println("------------");
+        List<Product> deletedProduct1 = productBasket.removeProduct("Vine");
+        if (deletedProduct1.isEmpty()){
+            System.out.println("Список пуст.");
+        }
+        System.out.println("------------");
         productBasket.printBasket();
+
+
+
+
     }
 }
