@@ -56,20 +56,11 @@ public class ProductBasket {
 
     public List<Product> removeProduct(String name) {
         List<Product> rp = new LinkedList<>();
-
-        Iterator<Product> iterator = basket.iterator();
-
-        while (iterator.hasNext()) {
-            Product product = iterator.next();
-
-            if(product.getName().equals(name)) {
-                rp.add(product);
-                iterator.remove();
-            }
+        Product removedProduct = basket.remove(name);
+        if(removedProduct != null) {
+            rp.add(removedProduct);
         }
         return rp;
-
-
     }
 
 }

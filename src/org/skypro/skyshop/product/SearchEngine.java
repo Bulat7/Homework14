@@ -1,29 +1,30 @@
 package org.skypro.skyshop.product;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class SearchEngine {
-    private final List<Searchable> elements;
+
+    private final Map<String, Searchable> elements = new TreeMap<>();
+    //private final List<Searchable> elements;
 
     public SearchEngine() {
-        this.elements = new LinkedList<>();
+
     }
 
-    public List<Searchable> search(String query) {
-        List <Searchable> result = new LinkedList<>();
-        for (Searchable sch : elements) {
+    public Map<String,Searchable> search(String query) {
+        Map<String,Searchable> searchResult = new TreeMap<>();
+        for (Searchable sch : elements.values()) {
             if (sch.searchTerm().contains((query))) {
-                result.add(sch);
+                searchResult.put(sch.searchTerm(), sch);
                 System.out.println("Элемент найден: " + sch.getStringRepresentation());
             }
 
         }
-        return result;
+        return searchResult;
     }
 
     public void printAll(){
-        for(Searchable sch : elements) {
+        for(Searchable sch : elements.values()) {
                 System.out.println(sch.getStringRepresentation());
 
         }
@@ -36,7 +37,7 @@ public class SearchEngine {
         Searchable searchable = null;
         int count = 0;
 
-        for(Searchable src : elements) {
+        for(Searchable src : elements.values()) {
 
             String term = src.searchTerm();
             int gap = term.length() - term.replace(search,"").length();
@@ -54,7 +55,7 @@ public class SearchEngine {
 
     public void add(Searchable searchable) {
         if(searchable != null ) {
-            elements.add(searchable);
+            elements.put(searchable.searchTerm(), searchable);
         } else {
             System.out.println("Добавьте продукт для сравнения!");
         }
