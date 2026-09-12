@@ -3,6 +3,9 @@ package org.skypro.skyshop;
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.*;
 
+import java.util.LinkedList;
+import java.util.List;
+
 class App{
     public static void main(String[] args) {
         ProductBasket basket = new ProductBasket();
@@ -32,7 +35,7 @@ class App{
 
 
 
-        SearchEngine searchEngine = new SearchEngine(5);
+        SearchEngine searchEngine = new SearchEngine();
         searchEngine.add(fixedBread);
         searchEngine.add(simpleApple);
         searchEngine.add(discountedRise);
@@ -56,7 +59,6 @@ class App{
             System.out.println("Поиск завершен.");
 
         }
-        searchEngine.clearEngine();
         searchEngine.add(fixedBread);
         try {
             System.out.println(searchEngine.findMostSuitable("apple"));
@@ -67,6 +69,28 @@ class App{
             System.out.println("Поиск завершен.");
 
         }
+
+        ProductBasket productBasket = new ProductBasket();
+        productBasket.addProduct(fixedBread);
+        productBasket.addProduct(simpleGreenApple);
+        productBasket.addProduct(simpleApple);
+        productBasket.addProduct(simpleRedApple);
+        productBasket.addProduct(discountedRise);
+
+        System.out.println("\n18 lesson:");
+        List<Product> deletedProduct = productBasket.removeProduct("Apple");
+        System.out.println(deletedProduct);
+        System.out.println("------------");
+        productBasket.printBasket();
+        System.out.println("------------");
+        List<Product> deletedProduct1 = productBasket.removeProduct("Vine");
+        if (deletedProduct1.isEmpty()){
+            System.out.println("Список пуст.");
+        }
+        System.out.println("------------");
+        productBasket.printBasket();
+
+
 
 
     }

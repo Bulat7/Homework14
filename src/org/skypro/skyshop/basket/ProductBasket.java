@@ -1,25 +1,22 @@
 package org.skypro.skyshop.basket;
 import org.skypro.skyshop.product.Product;
 
-import java.util.Arrays;
+import java.util.*;
 
 public class ProductBasket {
-    private Product[] basket = new Product[5];
-    private int count = 0;
 
-    public void addProduct(Product newProduct) {
-        if (count < basket.length) {
-            basket[count] = newProduct;
-            count++;
-            System.out.println("Добавлен продукт - " + newProduct.getName() + " цена - " + newProduct.getPrice());
-        } else {
-            System.out.println("Невозможно добавить продукт");
+    private Map<String,Product> basket = new HashMap<>();
+
+    public void addProduct(Product product) {
+        if (product!= null ) {
+            basket.put(product.getName(), product);
+            System.out.println("Добавлен продукт - " + product.getName() + " цена - " + product.getPrice());
         }
     }
 
     public int totalPrice() {
         int totalPrice = 0;
-        for (Product prd : basket) {
+        for (Product prd : basket.values()) {
             if (prd != null) {
                 totalPrice += prd.getPrice();
             }
@@ -32,8 +29,7 @@ public class ProductBasket {
             System.out.println("В корзине пусто");
             return;
         }
-        for (int i = 0; i < basket.length; i++) {
-            var product = basket[i];
+        for (var product : basket.values()) {
             if (product != null) {
                 System.out.println(product);
             }
@@ -43,36 +39,28 @@ public class ProductBasket {
     }
 
     public boolean productChek(String productName) {
-        for (Product prd : basket) {
-            if (prd == null) {
-                continue;
-            }
-            if (prd.getName().equals(productName)) {
-                return true;
-            }
-        }
-        return false;
+        return basket.containsKey(productName);
     }
 
-    public void basketCleaner() {
-        for (int i = 0; i < basket.length; i++) {
-            basket[i] = null;
-        }
-        this.count = 0;
-    }
 
     public int getSpecialCount() {
         int specialCount = 0;
 
-        for (int i = 0; i < basket.length; i++) {
-            var product = basket[i];
-
-            if (product != null && product.isSpecial()) {
+        for(var product : basket.values()) {
+            if(product != null && product.isSpecial()) {
                 specialCount++;
             }
         }
         return specialCount;
+    }
 
+    public List<Product> removeProduct(String name) {
+        List<Product> rp = new LinkedList<>();
+        Product removedProduct = basket.remove(name);
+        if(removedProduct != null) {
+            rp.add(removedProduct);
+        }
+        return rp;
     }
 
 }
