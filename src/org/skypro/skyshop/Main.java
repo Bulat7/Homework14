@@ -5,6 +5,8 @@ import org.skypro.skyshop.product.*;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 class App{
     public static void main(String[] args) {
@@ -89,6 +91,15 @@ class App{
         }
         System.out.println("------------");
         productBasket.printBasket();
+
+        Map<String, Searchable> searchResult = searchEngine.search("Apple");
+        for (Searchable src : searchResult.values()) {
+            System.out.println(src.getStringRepresentation());
+
+        }
+
+
+
 
 
 

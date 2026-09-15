@@ -5,20 +5,24 @@ import java.util.*;
 
 public class ProductBasket {
 
-    private Map<String,Product> basket = new HashMap<>();
+    private Map<String,LinkedList<Product>> basket = new HashMap<>();
 
     public void addProduct(Product product) {
-        if (product!= null ) {
-            basket.put(product.getName(), product);
+        if (product != null ) {
+            basket.computeIfAbsent(product.getName(), k -> new LinkedList<>()).add(product);
             System.out.println("Добавлен продукт - " + product.getName() + " цена - " + product.getPrice());
         }
     }
 
     public int totalPrice() {
         int totalPrice = 0;
-        for (Product prd : basket.values()) {
-            if (prd != null) {
-                totalPrice += prd.getPrice();
+        for (List<Product> prdList : basket.values()) {
+            if (prdList != null) {
+                for (Product product : prdList) {
+                    if (product != null) {
+                        totalPrice += product.getPrice();
+                    }
+                }
             }
         }
         return totalPrice;
@@ -45,22 +49,25 @@ public class ProductBasket {
 
     public int getSpecialCount() {
         int specialCount = 0;
-
-        for(var product : basket.values()) {
-            if(product != null && product.isSpecial()) {
-                specialCount++;
+        for(List<Product> productList : basket.values()) {
+            if (productList != null) {
+            for (Product product : productList) {
+                if (product != null && product.isSpecial()) {
+                    specialCount++;
+                }
             }
         }
-        return specialCount;
+
+        }return specialCount;
     }
 
     public List<Product> removeProduct(String name) {
-        List<Product> rp = new LinkedList<>();
-        Product removedProduct = basket.remove(name);
-        if(removedProduct != null) {
-            rp.add(removedProduct);
-        }
-        return rp;
-    }
+        List<Product> removedProductList = basket.remove(name);
 
+        if (removedProductList == null) {
+            System.out.println("Такого товара не существует!");
+            return new LinkedList<>();
+        }
+        return removedProductList;
+    }
 }

@@ -8,14 +8,13 @@ public class SearchEngine {
     //private final List<Searchable> elements;
 
     public SearchEngine() {
-
     }
 
     public Map<String,Searchable> search(String query) {
         Map<String,Searchable> searchResult = new TreeMap<>();
         for (Searchable sch : elements.values()) {
-            if (sch.searchTerm().contains((query))) {
-                searchResult.put(sch.searchTerm(), sch);
+            if (sch.searchTerm().toLowerCase().contains((query.toLowerCase()))) {
+                searchResult.put(sch.getName(), sch);
                 System.out.println("Элемент найден: " + sch.getStringRepresentation());
             }
 
