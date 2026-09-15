@@ -28,4 +28,8 @@ public abstract class Product implements Searchable {
         return "PRODUCT";
     }
 
+    @Override
+    public String toString() {
+        return  name;
+    }
 }
