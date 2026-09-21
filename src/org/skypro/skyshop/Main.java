@@ -3,10 +3,7 @@ package org.skypro.skyshop;
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.*;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 class App{
     public static void main(String[] args) {
@@ -33,9 +30,6 @@ class App{
         Product discountedRise = new DiscountedProduct("Rise", 100,20 );
         Product simpleGreenApple = new SimpleProduct("GreenApple", 15);
         Product simpleRedApple = new SimpleProduct("RedApple", 25);
-
-
-
 
         SearchEngine searchEngine = new SearchEngine();
         searchEngine.add(fixedBread);
@@ -92,8 +86,9 @@ class App{
         System.out.println("------------");
         productBasket.printBasket();
 
-        Map<String, Searchable> searchResult = searchEngine.search("Apple");
-        for (Searchable src : searchResult.values()) {
+        Set<Searchable> searchResult = searchEngine.search("Apple");
+        System.out.println("Результаты поиска: ");
+        for (Searchable src : searchResult) {
             System.out.println(src.getStringRepresentation());
 
         }

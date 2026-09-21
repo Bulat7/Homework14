@@ -4,18 +4,20 @@ import java.util.*;
 
 public class SearchEngine {
 
-    private final Map<String, Searchable> elements = new TreeMap<>();
-    //private final List<Searchable> elements;
+    private final Set<Searchable> elements = new HashSet<>();
 
     public SearchEngine() {
     }
 
-    public Map<String,Searchable> search(String query) {
-        Map<String,Searchable> searchResult = new TreeMap<>();
-        for (Searchable sch : elements.values()) {
+    public Set<Searchable> search(String query) {
+        Comparator<Searchable> comparator = Comparator
+                .comparingInt((Searchable sch) -> sch.searchTerm().length()).reversed()
+                .thenComparing((Searchable sch) -> sch.searchTerm());
+        Set<Searchable> searchResult = new TreeSet<>(comparator);
+        for (Searchable sch : elements) {
             if (sch.searchTerm().toLowerCase().contains((query.toLowerCase()))) {
-                searchResult.put(sch.getName(), sch);
-                System.out.println("Элемент найден: " + sch.getStringRepresentation());
+                searchResult.add(sch);
+                //System.out.println("Элемент найден: " + sch.getStringRepresentation());
             }
 
         }
@@ -23,7 +25,7 @@ public class SearchEngine {
     }
 
     public void printAll(){
-        for(Searchable sch : elements.values()) {
+        for(Searchable sch : elements) {
                 System.out.println(sch.getStringRepresentation());
 
         }
@@ -36,7 +38,7 @@ public class SearchEngine {
         Searchable searchable = null;
         int count = 0;
 
-        for(Searchable src : elements.values()) {
+        for(Searchable src : elements) {
 
             String term = src.searchTerm();
             int gap = term.length() - term.replace(search,"").length();
@@ -54,7 +56,7 @@ public class SearchEngine {
 
     public void add(Searchable searchable) {
         if(searchable != null ) {
-            elements.put(searchable.searchTerm(), searchable);
+            elements.add(searchable);
         } else {
             System.out.println("Добавьте продукт для сравнения!");
         }
