@@ -11,13 +11,12 @@ public class SearchEngine {
 
     public Set<Searchable> search(String query) {
         Comparator<Searchable> comparator = Comparator
-                .comparingInt((Searchable sch) -> sch.searchTerm().length()).reversed()
-                .thenComparing((Searchable sch) -> sch.searchTerm());
+                .comparingInt((Searchable sch) -> sch.getName().length()).reversed()
+                .thenComparing((Searchable sch) -> sch.getName());
         Set<Searchable> searchResult = new TreeSet<>(comparator);
         for (Searchable sch : elements) {
             if (sch.searchTerm().toLowerCase().contains((query.toLowerCase()))) {
                 searchResult.add(sch);
-                //System.out.println("Элемент найден: " + sch.getStringRepresentation());
             }
 
         }
