@@ -2,6 +2,7 @@ package org.skypro.skyshop.basket;
 import org.skypro.skyshop.product.Product;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ProductBasket {
 
@@ -14,18 +15,16 @@ public class ProductBasket {
         }
     }
 
+    public List<Product> getAllProduct() {
+        return basket.values().stream().flatMap(Collection::stream)
+                .collect(Collectors.toList());
+    }
+
     public int totalPrice() {
-        int totalPrice = 0;
-        for (List<Product> prdList : basket.values()) {
-            if (prdList != null) {
-                for (Product product : prdList) {
-                    if (product != null) {
-                        totalPrice += product.getPrice();
-                    }
-                }
-            }
-        }
-        return totalPrice;
+        return getAllProduct().stream()
+                .filter(Objects::nonNull)
+                .mapToInt(Product::getPrice)
+                .sum();
     }
 
     public void printBasket() {
@@ -33,11 +32,9 @@ public class ProductBasket {
             System.out.println("В корзине пусто");
             return;
         }
-        for (var product : basket.values()) {
-            if (product != null) {
-                System.out.println(product);
-            }
-        }
+        getAllProduct().stream()
+                .filter(Objects::nonNull)
+                .forEach(System.out::println);
         System.out.println("Итого:" + totalPrice());
         System.out.println("Специальных товаров: " + getSpecialCount());
     }
@@ -48,17 +45,11 @@ public class ProductBasket {
 
 
     public int getSpecialCount() {
-        int specialCount = 0;
-        for(List<Product> productList : basket.values()) {
-            if (productList != null) {
-            for (Product product : productList) {
-                if (product != null && product.isSpecial()) {
-                    specialCount++;
-                }
-            }
-        }
 
-        }return specialCount;
+        return (int) getAllProduct().stream()
+                .filter(Objects::nonNull)
+                .filter(Product::isSpecial)
+                .count();
     }
 
     public List<Product> removeProduct(String name) {
